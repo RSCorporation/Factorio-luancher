@@ -5,34 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Factorio Launcher" Height="700" Width="1000" ResizeMode="NoResize">
+        Title="Factorio Launcher" Height="700" Width="1000" ResizeMode="CanMinimize" Icon="launcher_data/UL.png">
+    <Window.Background>
+        <ImageBrush ImageSource="/launcher_data/icons/ФОН 1.png"/>
+    </Window.Background>
     <Window.Resources>
         <ControlTemplate TargetType="Button" x:Key="ButtonTemplate1">
-            <Border BorderThickness="0" Background="LightGray" CornerRadius="5">
+            <Border BorderThickness="1" BorderBrush="Gray" Background="#414144" Opacity="0.9" CornerRadius="0">
                 <ContentPresenter HorizontalAlignment="Center" AllowDrop="True"/>
             </Border>
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <Label HorizontalAlignment="Left" Margin="10,10,0,0" Width="972"  Height="42" FontSize="24" VerticalAlignment="Top" FontWeight="ExtraBlack" Name="TopLabel"/>
+        <Grid Name="MainGrid">
+            <Image HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="192" Source="/launcher_data/Название.png" Margin="25,0,0,0"/>
 
-        <TextBox HorizontalAlignment="Left" Height="37" Margin="10,622,0,0" TextWrapping="Wrap" Text="" FontSize="24" FontWeight="ExtraBlack" VerticalAlignment="Top" Width="787" MaxLength="67" BorderThickness="1" Name="AddressInputField"/>
-        <Button Template="{StaticResource ButtonTemplate1}" Content="Check server" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="802,622,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="ExtraBold" Height="37" Width="180" Name="CheckServerButton" Click="CheckServerButton_Click"/>
-        <ListView HorizontalAlignment="Left" Height="560" Margin="10,57,0,0" VerticalAlignment="Top" Width="485" Name="PlayersList">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="395">Name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=IsAdmin}" Width="80">Promoted</GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView HorizontalAlignment="Left" Height="560" Margin="497,57,0,0" VerticalAlignment="Top" Width="485" Name="ModsList">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="355">Name</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Version}" Width="100">Version</GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            <TextBox Text="127.0.0.1" HorizontalAlignment="Left" Height="37" Margin="25,574,0,0" TextWrapping="Wrap" FontSize="24" VerticalAlignment="Top" Width="942" MaxLength="67" Name="AddressInputField" Foreground="Black" BorderThickness="2"/>
+            <Button Template="{StaticResource ButtonTemplate1}" Foreground="White" Content="Check server" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="417,616,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="37" Width="180" Name="CheckServerButton" Click="CheckServerButton_Click"/>
+            <Button Template="{StaticResource ButtonTemplate1}"  Width="180" Height="37" Margin="787,616,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Foreground="White" Content="Connect" Name="ConnectButton" Click="ConnectButton_Click"/>
+            <Button Template="{StaticResource ButtonTemplate1}" Width="180" Height="37" Margin="602,616,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Foreground="White" Content="Sync mods" Name="SyncModsButton" Click="SyncModsButton_Click"/>
+            <Label HorizontalAlignment="Left" Height="34" Margin="217,10,0,0" FontSize="24" FontWeight="Bold" Background="#414144" Foreground ="White" Opacity="0.9" VerticalAlignment="Top" Width="767" Content="" Padding="7,0,0,0" Name="TopStatusLabel"/>
+            <ListView HorizontalAlignment="Left" Height="261" Margin="352,62,0,0" VerticalAlignment="Top" Width="320" Background="#414144" Opacity="0.9" Name="OnlineListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Username}">Online Players</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView HorizontalAlignment="Left" Height="261" Margin="677,62,0,0" VerticalAlignment="Top" Width="310" Background ="#414144" Opacity="0.9" Name = "ModsListView" Foreground="White">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Version}">Version</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TabControl Foreground ="White" HorizontalAlignment="Left" Height="261" Margin="25,62,0,0" Background="#414144" Opacity="0.9" VerticalAlignment="Top" Width="322">
+                <TabItem Header="Admins">
+                    <ListView Foreground ="White" Background="Transparent" Name="AdminsListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>Nickname</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Whitelist">
+                    <ListView Foreground ="White" Background="Transparent" Name="WhiteListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Username}">Username</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Blacklist">
+                    <ListView Foreground ="White" Background="Transparent" Name="BanListView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Username}">Username</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Reason}">Reason</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+            </TabControl>
+            <TextBlock Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="25,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="241" Width="482" Name="LeftInfoTextBlock"/>
+            <TextBlock Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="25,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="241" Width="482" Name="RightInfoTextBlock"/>
+
+        </Grid>
+        <Grid Name="OverlayGrid" Background="Black" Visibility="Hidden">
+            <ProgressBar HorizontalAlignment="Left" Height="15" Margin="134,374,0,0" VerticalAlignment="Top" Width="691" Background="#121212" BorderThickness="0" Value="0" Foreground="#FF9E1A" Name="LoadingProgress"/>
+            <Label Margin="134,391,169,232" Content="Loading mods..." Foreground="#FF9E1A" FontWeight="Bold" FontSize="12" Name="InfoLabel"/>
+            <Image HorizontalAlignment="Left" Height="120" Margin="134,182,0,0" VerticalAlignment="Top" Width="691" Source="/launcher_data/Factorio-logo.png"/>
+            <Image HorizontalAlignment="Left" Height="55" Margin="525,302,0,0" VerticalAlignment="Top" Width="300" Source="/launcher_data/Launcher.png" Loaded="Window_Loaded"/>
+        </Grid>
     </Grid>
 </Window>

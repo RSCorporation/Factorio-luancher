@@ -1,0 +1,154 @@
+[Header]
+1b - type (| 40h - fragmented) (| 80h - lastFragment) (| 20h - зависит от времени (можно рандом))
+if (reliable (2 - 5) || fragmented) {
+	2b - messageid (| 0x8000 - подтверждение того что ласт мессейдж ок)
+	if (fragmentNumber >= 0xFF) {
+		1b - 0xFF
+		2b - fragmentNumber
+	}
+	else
+		1b - fragmentNumber
+}
+if (0x8000) {
+	1b - разница в сообщениях
+	4b - ласт принятое
+}
+
+[OtherTypes]
+varnum {
+	if (varnum >= 0xFF) {
+		1b - 0xFF
+		2b - varnum
+	}
+	else
+		1b - varnum
+}
+varint {
+	if (varint >= 0xFF) {
+		1b - 0xFF
+		4b - varint
+	}
+	else
+		1b - varint
+}
+string {
+	varnum - length
+	lengthb - stringdata
+}
+
+[Messages]
+message types:
+0 - Ping
+1 - PingReply
+[
+	2 - ConnectionRequest
+	3 - ConnectionRequestReply
+	4 - ConnectionRequestReplyConfirm
+	5 - ConnectionAcceptOrDeny {
+		4b - clientrequestid 
+		1b - status
+		string - gameName
+		string - serverHash
+		string - description
+		1b - latency
+		4b - gameId
+		ClientsPeerInfo {
+			string - serverUsername
+			1b - mapSavingProgress
+			varnum - хз (прогресс сохранения)
+			varnum - clientssize
+			Client[clientssize] {
+				varnum - peerId
+				string - username
+				1b - о клиенте (| 01h - dropping) (| 02h - map saving) (| 04h - map downloading) (| 08h - map loading) (| 10h - trying to catch up)
+				~1b - dropping progress
+				~1b - map saving progress
+				~1b - map downloading progress
+				~1b - map loading progress
+				~1b - trying to catch up progress
+			}
+			4b - firstSequenceNumberToSend
+			2b - newPeerId
+			varint - mods count
+			ModInfo[mods count] {
+				string - name
+				varnum - majorVersion
+				varnum - minorVersion
+				varnum - subVersion
+				4b - crc32 ?!
+			}
+			varint - startup mod settings count 
+			ModSettings[startup mod settings count] {
+				1b - mod settings type
+				2b - mod settings value ?
+			}
+			2b - pausedBy
+			MultiPlayerHostSettings {
+				ServerGameData {
+					4b - lanGameId
+					string - name
+					string - description
+					2b - maxPlayers
+					4b - gameTimeElapsed
+					1b - hasPassword
+					string - hostaddress
+					4b - ?stringlength?
+					stringlengthb - ?string?
+					varint - tagsCount
+					Tag[tagsCount] {
+						varint - tagLength
+						tagLengthb - tagData
+					}
+				}
+				string - serverUsername
+				4b - autosaveInterval
+				4b - autosaveSlots
+				4b - AFKAutoKickInterval
+				1b - allowCommands
+				4b - maxUploadInKilobytesPerSecond
+				1b - minimumLatencyInTicks
+				1b - ignorePlayerLimitForReturningPlayers
+				1b - onlyAdminsCanPauseTheGame
+				1b - requireUserVerification
+				varint - admincount
+				string[admincount] - admins
+				varint - whitelistcount
+				WhiteListItem[whitelistcount] {
+					string - nick
+					string - reason
+					string - address
+				}
+				varint - white mapping count
+				AddressToUsernameMapping[white mapping count] {
+					varint - address
+					string - username
+				}
+				varint - banlistcount
+				BanListItem[banlistcount] {
+					string - nick
+					string - reason
+					string - address
+				}
+				varint - ban mapping count
+				AddressToUsernameMapping[ban mapping count] {
+					varint - address
+					string - username
+				}
+			}
+		}
+	}
+]
+6 - ClientToServerHeartbeat
+7 - ServerToClientHeartbeat
+8 - GetOwnAddress
+9 - GetOwnAddressReply
+A - NatPunchRequest
+B - NatPunch
+C - TransferBlockRequest
+D - TransferBlock
+E - RequestForHeartbeatWhenDisconnecting
+F - LANBroadcast
+10 - GameInformationRequest
+11 - GameInformationRequestReply
+12 - Empty
+default - Unknown 

@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{CCD8A43C-4664-48B5-BA93-0652BF11691E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactorioServerAPI", "FactorioServerAPI\FactorioServerAPI.csproj", "{B627D796-E854-4B7D-BCC5-49DC096127E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleBuild", "ConsoleBuild\ConsoleBuild.csproj", "{42D2B562-82ED-4AF8-9929-D8985B98CCFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactorioServerAPIFramework", "FactorioServerAPIFramework\FactorioServerAPIFramework.csproj", "{A6C66E6A-8473-4CEA-B6DB-46D8B43FEB30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{CCD8A43C-4664-48B5-BA93-0652BF11691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCD8A43C-4664-48B5-BA93-0652BF11691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCD8A43C-4664-48B5-BA93-0652BF11691E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B627D796-E854-4B7D-BCC5-49DC096127E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B627D796-E854-4B7D-BCC5-49DC096127E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B627D796-E854-4B7D-BCC5-49DC096127E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B627D796-E854-4B7D-BCC5-49DC096127E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D2B562-82ED-4AF8-9929-D8985B98CCFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D2B562-82ED-4AF8-9929-D8985B98CCFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D2B562-82ED-4AF8-9929-D8985B98CCFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D2B562-82ED-4AF8-9929-D8985B98CCFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C66E6A-8473-4CEA-B6DB-46D8B43FEB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C66E6A-8473-4CEA-B6DB-46D8B43FEB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C66E6A-8473-4CEA-B6DB-46D8B43FEB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C66E6A-8473-4CEA-B6DB-46D8B43FEB30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

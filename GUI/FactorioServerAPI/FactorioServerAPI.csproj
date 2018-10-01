@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>Library for Factorio Launcher. Privides methods and classes to interact with factorio server.</Description>
+    <Company>FL. Inc</Company>
+    <Authors>_romanchick_</Authors>
+  </PropertyGroup>
+
+</Project>
